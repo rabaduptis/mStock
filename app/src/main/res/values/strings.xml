@@ -2,4 +2,6 @@
     <string name="app_name">mStock</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="log_in_with_google">Log-in with Google</string>
+    <string name="google_icon_day">Google Icon (Day)</string>
 </resources>
