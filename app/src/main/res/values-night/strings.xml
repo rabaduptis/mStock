@@ -5,4 +5,7 @@
     <string name="search_bar">Search</string>
     <string name="searchbar_hint">Search Here</string>
     <string name="extended_fab_label">Read Barcode</string>
+    <string name="product_name_sample">PRODUCT NAME SAMPLE</string>
+    <string name="ean_1234567891234">ean - 1234567891234</string>
+    <string name="quantity_111">quantity - 111</string>
 </resources>
