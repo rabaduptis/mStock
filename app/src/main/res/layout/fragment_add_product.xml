@@ -18,7 +18,7 @@
             android:layout_marginEnd="8dp"
             android:ems="10"
             android:inputType="text"
-            android:text="PRODUCT NAME"
+            android:text="@string/product_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:layout_editor_absoluteY="16dp" />
@@ -32,7 +32,7 @@
             android:layout_marginEnd="8dp"
             android:ems="10"
             android:inputType="text"
-            android:text="EAN"
+            android:text="@string/ean"
             app:layout_constraintEnd_toEndOf="@+id/editTextText"
             app:layout_constraintStart_toStartOf="@+id/editTextText"
             app:layout_constraintTop_toBottomOf="@+id/editTextText" />
@@ -45,7 +45,7 @@
             android:layout_marginEnd="8dp"
             android:ems="10"
             android:inputType="text"
-            android:text="SERIAL NO"
+            android:text="@string/serial_no"
             app:layout_constraintEnd_toEndOf="@+id/editTextText2"
             app:layout_constraintStart_toStartOf="@+id/editTextText2"
             app:layout_constraintTop_toBottomOf="@+id/editTextText2" />
@@ -58,7 +58,7 @@
             android:layout_marginEnd="8dp"
             android:ems="10"
             android:inputType="text"
-            android:text="QUANTITY"
+            android:text="@string/quantity"
             app:layout_constraintEnd_toEndOf="@+id/editTextText3"
             app:layout_constraintStart_toStartOf="@+id/editTextText3"
             app:layout_constraintTop_toBottomOf="@+id/editTextText3" />
@@ -71,7 +71,7 @@
             android:layout_marginEnd="8dp"
             android:ems="10"
             android:inputType="text"
-            android:text="DESI"
+            android:text="@string/desi"
             app:layout_constraintEnd_toEndOf="@+id/editTextText4"
             app:layout_constraintStart_toStartOf="@+id/editTextText4"
             app:layout_constraintTop_toBottomOf="@+id/editTextText4" />
@@ -84,7 +84,7 @@
             android:layout_marginEnd="8dp"
             android:ems="10"
             android:inputType="text"
-            android:text="PRICE"
+            android:text="@string/price"
             app:layout_constraintEnd_toEndOf="@+id/editTextText5"
             app:layout_constraintStart_toStartOf="@+id/editTextText5"
             app:layout_constraintTop_toBottomOf="@+id/editTextText5" />
@@ -94,7 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="ADD"
+            android:text="@string/add"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/editTextText6" />

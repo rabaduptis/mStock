@@ -11,4 +11,14 @@
     <string name="ean_1234567891234">ean - 1234567891234</string>
     <string name="quantity_111">quantity - 111</string>
     <string name="scan_barcode">SCAN BARCODE</string>
+    <string name="product_name">PRODUCT NAME</string>
+    <string name="ean">EAN</string>
+    <string name="serial_no">SERIAL NO</string>
+    <string name="quantity">QUANTITY</string>
+    <string name="desi">DESI</string>
+    <string name="price">PRICE</string>
+    <string name="add">ADD</string>
+    <string name="update">UPDATE</string>
+    <string name="delete_product">DELETE PRODUCT</string>
+    <string name="date_of_create">DATE OF CREATE</string>
 </resources>
