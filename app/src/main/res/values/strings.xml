@@ -10,4 +10,5 @@
     <string name="product_name_sample">PRODUCT NAME SAMPLE</string>
     <string name="ean_1234567891234">ean - 1234567891234</string>
     <string name="quantity_111">quantity - 111</string>
+    <string name="scan_barcode">SCAN BARCODE</string>
 </resources>

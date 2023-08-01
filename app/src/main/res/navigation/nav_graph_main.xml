@@ -22,5 +22,17 @@
         <action
             android:id="@+id/action_mainScreenFragment_self"
             app:destination="@id/mainScreenFragment" />
+        <action
+            android:id="@+id/action_mainScreenFragment_to_barcodeFragment"
+            app:destination="@id/barcodeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/barcodeFragment"
+        android:name="com.root14.mstock.ui.BarcodeFragment"
+        android:label="fragment_barcode"
+        tools:layout="@layout/fragment_barcode" >
+        <action
+            android:id="@+id/action_barcodeFragment_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment" />
     </fragment>
 </navigation>

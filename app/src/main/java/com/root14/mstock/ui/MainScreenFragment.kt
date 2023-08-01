@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.root14.mstock.R
@@ -33,6 +34,7 @@ class MainScreenFragment : Fragment() {
 
         binding.extendedFab.setOnClickListener {
             //TODO:implement barcode reader
+            findNavController().navigate(R.id.action_mainScreenFragment_to_barcodeFragment)
         }
 
         //a list with only the types of products
