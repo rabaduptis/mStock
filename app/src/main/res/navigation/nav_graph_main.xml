@@ -18,5 +18,9 @@
         android:id="@+id/mainScreenFragment"
         android:name="com.root14.mstock.ui.MainScreenFragment"
         android:label="fragment_main_screen"
-        tools:layout="@layout/fragment_main_screen" />
+        tools:layout="@layout/fragment_main_screen" >
+        <action
+            android:id="@+id/action_mainScreenFragment_self"
+            app:destination="@id/mainScreenFragment" />
+    </fragment>
 </navigation>

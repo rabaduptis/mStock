@@ -2,4 +2,7 @@
 <resources>
     <string name="log_in_with_google">Log-in with Google</string>
     <string name="google_icon_day">Google Icon (Day)</string>
+    <string name="search_bar">Search</string>
+    <string name="searchbar_hint">Search Here</string>
+    <string name="extended_fab_label">Read Barcode</string>
 </resources>
