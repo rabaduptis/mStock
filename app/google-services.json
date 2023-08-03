@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "187171630072",
+    "project_id": "mstock-d2444",
+    "storage_bucket": "mstock-d2444.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:187171630072:android:1202db053a312ad041840d",
+        "android_client_info": {
+          "package_name": "com.root14.mstock"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "187171630072-n1m316oacof7601uvn96qehaoic799gr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwITJwLF85syxgF6JL3XYIQbbdbUP9qUc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "187171630072-n1m316oacof7601uvn96qehaoic799gr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

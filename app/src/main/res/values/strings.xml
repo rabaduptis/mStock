@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">mStock</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="web_client_id">187171630072-l6k6qm152vaf9arhmvdkr097h842dd86.apps.googleusercontent.com</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="log_in_with_google">Log-in with Google</string>
     <string name="google_icon_day">Google Icon (Day)</string>
@@ -21,4 +21,6 @@
     <string name="update">UPDATE</string>
     <string name="delete_product">DELETE PRODUCT</string>
     <string name="date_of_create">DATE OF CREATE</string>
+    <string name="password">password</string>
+    <string name="email">email</string>
 </resources>

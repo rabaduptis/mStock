@@ -5,18 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.snackbar.Snackbar
 import com.root14.mstock.R
-import com.root14.mstock.databinding.FragmentLoginGoogleBinding
+import com.root14.mstock.databinding.FragmentLoginBinding
+import com.root14.mstock.viewmodel.LoginViewModel
 
 
-class LoginGoogleFragment : Fragment() {
-    private var _binding: FragmentLoginGoogleBinding? = null
+class LoginFragment : Fragment(R.layout.fragment_login) {
+    private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
+
+    private val loginViewModel: LoginViewModel by activityViewModels()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +30,7 @@ class LoginGoogleFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentLoginGoogleBinding.inflate(inflater, container, false)
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -37,7 +42,7 @@ class LoginGoogleFragment : Fragment() {
             .into(binding.LoginGoogleIconImageView)
 
 
-        binding.loginGoogleButton.setOnClickListener {
+        binding.buttonLoginRegister.setOnClickListener {
 
             Snackbar.make(binding.root, "demo-login", Snackbar.LENGTH_SHORT).show()
 

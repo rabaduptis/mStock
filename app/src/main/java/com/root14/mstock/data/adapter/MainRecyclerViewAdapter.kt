@@ -1,4 +1,4 @@
-package com.root14.mstock.data
+package com.root14.mstock.data.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -28,13 +28,13 @@ class MainRecyclerViewAdapter(private val showCaseItemList: MutableList<ShowCase
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): MainRecyclerViewAdapter.ModelViewHolder {
+    ): ModelViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.main_screen_list_item_layout, parent, false)
         return ModelViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: MainRecyclerViewAdapter.ModelViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ModelViewHolder, position: Int) {
         holder.bindItems(showCaseItemList[position])
     }
 

@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/loginGoogleFragment"
-        android:name="com.root14.mstock.ui.LoginGoogleFragment"
+        android:name="com.root14.mstock.ui.LoginFragment"
         android:label="fragment_login_google"
-        tools:layout="@layout/fragment_login_google" >
+        tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginGoogleFragment_to_mainScreenFragment"
             app:destination="@id/mainScreenFragment" />

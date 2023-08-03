@@ -5,12 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.root14.mstock.R
-import com.root14.mstock.data.MainRecyclerViewAdapter
+import com.root14.mstock.data.adapter.MainRecyclerViewAdapter
 import com.root14.mstock.data.model.ShowCaseDataModel
 import com.root14.mstock.databinding.FragmentMainScreenBinding
 
