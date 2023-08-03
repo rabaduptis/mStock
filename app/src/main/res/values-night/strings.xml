@@ -21,4 +21,5 @@
     <string name="date_of_create">DATE OF CREATE</string>
     <string name="password">password</string>
     <string name="email">email</string>
+    <string name="login_register">login/register</string>
 </resources>

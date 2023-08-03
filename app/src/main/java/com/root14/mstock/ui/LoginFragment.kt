@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -43,7 +45,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
 
         binding.buttonLoginRegister.setOnClickListener {
-
             Snackbar.make(binding.root, "demo-login", Snackbar.LENGTH_SHORT).show()
 
             //TODO: implement firebase googleAuth
@@ -51,5 +52,25 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             binding.root.findNavController()
                 .navigate(R.id.action_loginGoogleFragment_to_mainScreenFragment)
         }
+
+
+        binding.editTextEmail.addTextChangedListener {
+            loginViewModel.checkFormState(
+                binding.editTextEmail.text.toString(), binding.editTextPassword.text.toString()
+            )
+        }
+        binding.editTextPassword.addTextChangedListener {
+            loginViewModel.checkFormState(
+                binding.editTextEmail.text.toString(), binding.editTextPassword.text.toString()
+            )
+        }
+        loginViewModel.checkFormState.observe(viewLifecycleOwner, Observer {
+            binding.buttonLoginRegister.isEnabled = it.success == true
+            if (it.errorType != null) {
+                println("form state error ${it.errorType.toString()}")
+            }
+
+        })
+
     }
 }
