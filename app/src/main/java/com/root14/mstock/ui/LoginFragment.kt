@@ -43,25 +43,21 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
 
         binding.buttonLoginRegister.setOnClickListener {
-            Snackbar.make(binding.root, "demo-login", Snackbar.LENGTH_SHORT).show()
-
             loginViewModel.login(
                 binding.editTextEmail.text.toString(), binding.editTextPassword.text.toString()
             )
-
-
-            loginViewModel.login.observe(viewLifecycleOwner) {
-                if (it.success == true) {
-                    binding.root.findNavController()
-                        .navigate(R.id.action_loginGoogleFragment_to_mainScreenFragment)
-                } else {
-                    Snackbar.make(
-                        binding.root, it.exception?.message.toString(), Snackbar.LENGTH_SHORT
-                    ).show()
-                }
-            }
         }
 
+        loginViewModel.login.observe(viewLifecycleOwner) {
+            if (it.success == true) {
+                binding.root.findNavController()
+                    .navigate(R.id.action_loginGoogleFragment_to_mainScreenFragment)
+            } else {
+                Snackbar.make(
+                    binding.root, it.exception?.message.toString(), Snackbar.LENGTH_SHORT
+                ).show()
+            }
+        }
 
         binding.editTextEmail.addTextChangedListener {
             loginViewModel.checkFormState(

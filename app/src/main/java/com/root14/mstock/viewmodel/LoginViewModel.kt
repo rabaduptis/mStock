@@ -28,7 +28,7 @@ class LoginViewModel @Inject constructor() : ViewModel() {
         auth = Firebase.auth
 
         if (auth.currentUser == null) {
-            auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     //success
                     _login.postValue(LoginState(user = auth.currentUser, success = true))
@@ -37,7 +37,7 @@ class LoginViewModel @Inject constructor() : ViewModel() {
                     val exceptionCreateUser = task.exception
                     println(exceptionCreateUser?.message)
 
-                    if (exceptionCreateUser?.message.equals("The email address is already in use by another account.")) {
+                    if (exceptionCreateUser?.message.equals("The password is invalid or the user does not have a password.")) {
                         auth.signInWithEmailAndPassword(email, password).addOnFailureListener {
 
                             if (task.isSuccessful) {
@@ -53,7 +53,6 @@ class LoginViewModel @Inject constructor() : ViewModel() {
                             }
                         }
                     }
-
                     _login.postValue(LoginState(exception = exceptionCreateUser))
                 }
             }
