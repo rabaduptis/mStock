@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.root14.mstock.R
 import com.root14.mstock.data.adapter.MainRecyclerViewAdapter
 import com.root14.mstock.data.model.ShowCaseDataModel
@@ -34,6 +36,8 @@ class MainScreenFragment : Fragment() {
             //TODO:implement barcode reader
             findNavController().navigate(R.id.action_mainScreenFragment_to_barcodeFragment)
         }
+
+        println("hey douglas is that you? ${Firebase.auth.currentUser?.email}")
 
         //a list with only the types of products
         val models = mutableListOf(

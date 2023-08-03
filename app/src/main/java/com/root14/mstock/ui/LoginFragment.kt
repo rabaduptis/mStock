@@ -13,6 +13,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.root14.mstock.R
 import com.root14.mstock.databinding.FragmentLoginBinding
 import com.root14.mstock.viewmodel.LoginViewModel
@@ -24,10 +26,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private val loginViewModel: LoginViewModel by activityViewModels()
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -47,10 +45,21 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         binding.buttonLoginRegister.setOnClickListener {
             Snackbar.make(binding.root, "demo-login", Snackbar.LENGTH_SHORT).show()
 
-            //TODO: implement firebase googleAuth
+            loginViewModel.login(
+                binding.editTextEmail.text.toString(), binding.editTextPassword.text.toString()
+            )
 
-            binding.root.findNavController()
-                .navigate(R.id.action_loginGoogleFragment_to_mainScreenFragment)
+
+            loginViewModel.login.observe(viewLifecycleOwner) {
+                if (it.success == true) {
+                    binding.root.findNavController()
+                        .navigate(R.id.action_loginGoogleFragment_to_mainScreenFragment)
+                } else {
+                    Snackbar.make(
+                        binding.root, it.exception?.message.toString(), Snackbar.LENGTH_SHORT
+                    ).show()
+                }
+            }
         }
 
 
@@ -64,13 +73,22 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 binding.editTextEmail.text.toString(), binding.editTextPassword.text.toString()
             )
         }
-        loginViewModel.checkFormState.observe(viewLifecycleOwner, Observer {
+        loginViewModel.checkFormState.observe(viewLifecycleOwner) {
             binding.buttonLoginRegister.isEnabled = it.success == true
             if (it.errorType != null) {
                 println("form state error ${it.errorType.toString()}")
             }
 
-        })
+        }
+
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        if (Firebase.auth.currentUser != null) {
+            binding.root.findNavController()
+                .navigate(R.id.action_loginGoogleFragment_to_mainScreenFragment)
+        }
 
     }
 }
