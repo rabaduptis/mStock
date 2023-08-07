@@ -59,12 +59,17 @@ dependencies {
     implementation libs.navigation.ui.ktx
     implementation libs.navigation.dynamic.features.fragment
     implementation libs.glide
-
-    //implementation libs.hilt.android.compiler
-    //implementation libs.hiltAndroid
-
     implementation libs.hilt.android.v2461
     kapt libs.hilt.compiler
+    implementation libs.play.services.mlkit.barcode.scanning
+
+    implementation libs.androidx.camera.core
+    implementation libs.androidx.camera.camera2
+    implementation libs.androidx.camera.lifecycle
+    implementation libs.androidx.camera.video
+
+    implementation libs.androidx.camera.view
+    implementation libs.androidx.camera.extensions
 
 }
 
