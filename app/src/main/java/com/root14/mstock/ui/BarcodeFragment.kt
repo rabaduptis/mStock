@@ -2,12 +2,19 @@ package com.root14.mstock.ui
 
 import android.Manifest
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.google.android.gms.tasks.Task
+import com.google.android.material.snackbar.Snackbar
+import com.google.mlkit.vision.barcode.common.Barcode
+import com.root14.mstock.data.IMStockBarcodeScanner
 import com.root14.mstock.data.MStockBarcodeScanner
+import com.root14.mstock.data.enum.ErrorType
 import com.root14.mstock.databinding.FragmentBarcodeBinding
+import java.lang.Exception
 
 
 class BarcodeFragment : Fragment() {
@@ -41,7 +48,24 @@ class BarcodeFragment : Fragment() {
 
 
         binding.buttonReadBarcode.setOnClickListener {
-            mStockBarcodeScanner.processPhoto()
+
+            mStockBarcodeScanner.processPhoto(object : IMStockBarcodeScanner {
+                override fun onBarcodeSuccess(barcodes: MutableList<Barcode>) {
+                    Log.d("onBarcodeSuccess", barcodes.toString())
+                }
+
+                override fun onBarcodeFailure(barcodeOnFailure: ErrorType, e: Exception) {
+                    Snackbar.make(
+                        binding.root, "onBarcodeFailure", Snackbar.LENGTH_SHORT
+                    ).show()
+                }
+
+                override fun onBarcodeComplete(
+                    barcodeOnComplete: ErrorType, task: Task<MutableList<Barcode>>
+                ) {
+                    Snackbar.make(binding.root, "onBarcodeComplete", Snackbar.LENGTH_SHORT).show()
+                }
+            })
         }
 
     }

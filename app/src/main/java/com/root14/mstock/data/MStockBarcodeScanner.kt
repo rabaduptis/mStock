@@ -15,13 +15,12 @@ import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LifecycleRegistry
 import com.google.common.util.concurrent.ListenableFuture
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.common.InputImage
-import java.security.Permission
+import com.root14.mstock.data.enum.ErrorType
 
 class MStockBarcodeScanner {
 
@@ -32,6 +31,7 @@ class MStockBarcodeScanner {
     private var preview: Preview
     private lateinit var context: Context
     private var options: BarcodeScannerOptions
+    private lateinit var cameraProvider: ProcessCameraProvider
 
     init {
         //default permission for barcodeReader
@@ -40,12 +40,15 @@ class MStockBarcodeScanner {
         imageCapture = ImageCapture.Builder().build()
         preview = Preview.Builder().build()
 
-        options = BarcodeScannerOptions.Builder()
-            .setBarcodeFormats(Barcode.FORMAT_ALL_FORMATS).enableAllPotentialBarcodes()
-            .build()
+        options = BarcodeScannerOptions.Builder().setBarcodeFormats(Barcode.FORMAT_ALL_FORMATS)
+            .enableAllPotentialBarcodes().build()
     }
 
-    public fun processPhoto() {
+    /**
+     *
+     *
+     */
+    public fun processPhoto(imStockBarcodeScanner: IMStockBarcodeScanner) {
         imageCapture.takePicture(ContextCompat.getMainExecutor(this.context),
             object : ImageCapture.OnImageCapturedCallback() {
                 override fun onError(exception: ImageCaptureException) {
@@ -57,42 +60,68 @@ class MStockBarcodeScanner {
 
                 override fun onCaptureSuccess(image: ImageProxy) {
                     super.onCaptureSuccess(image)
-                    val msg = "Photo capture succeeded"
-
-                    Log.d("TAG", msg)
+                    Log.d("MStockBarcodeScanner", "Photo capture succeeded.")
 
                     val inputImage = InputImage.fromMediaImage(
                         image.image!!, image.imageInfo.rotationDegrees
                     )
 
-
                     val scanner = BarcodeScanning.getClient(options)
-
                     scanner.process(inputImage).addOnSuccessListener { barcodes ->
                         for (barcode in barcodes) {
                             val barcodeValue = barcode.rawValue
-                            Log.d("TAG", "Barcode: $barcodeValue")
+                            Log.d("MStockBarcodeScanner", "Barcode: $barcodeValue")
                         }
+
+                        if (!barcodes.isNullOrEmpty()) {
+                            imStockBarcodeScanner.onBarcodeSuccess(barcodes)
+                            Log.d("MStockBarcodeScanner", "Barcode scan success.")
+                        }
+
+
                     }.addOnFailureListener { e ->
-                        e.printStackTrace()
-                    }.addOnCompleteListener {
-                        image.close()
+                        imStockBarcodeScanner.onBarcodeFailure(ErrorType.BARCODE_ON_FAILURE, e)
+                        Log.d("MStockBarcodeScanner", e.stackTrace.toString())
+                    }.addOnCompleteListener { barcodes ->
+                        if (!barcodes.result.isNullOrEmpty()) {
+                            imStockBarcodeScanner.onBarcodeComplete(
+                                ErrorType.BARCODE_ON_COMPLETE, barcodes
+                            )
+                            image.close()
+                            Log.d("MStockBarcodeScanner", "Barcode scan completed.")
+                        }
+
+
                     }
                 }
             })
     }
 
-    public fun bindToView(previewView: PreviewView) {
+    /**
+     * to unbind camera
+     */
+    fun unbind() {
+        cameraProvider.unbind()
+    }
+
+    /**
+     * @param previewView surface to bind
+     */
+    fun bindToView(previewView: PreviewView) {
         cameraProviderFuture = ProcessCameraProvider.getInstance(this.context)
         cameraProviderFuture.addListener({
 
-            val cameraProvider = cameraProviderFuture.get()
+            cameraProvider = cameraProviderFuture.get()
             bindPreview(cameraProvider, previewView)
 
         }, ContextCompat.getMainExecutor(this.context))
     }
 
 
+    /**
+     * @param cameraProvider to bind views
+     * @param previewView surface to bind
+     */
     private fun bindPreview(cameraProvider: ProcessCameraProvider, previewView: PreviewView) {
         val cameraSelector: CameraSelector =
             CameraSelector.Builder().requireLensFacing(CameraSelector.LENS_FACING_BACK).build()
@@ -104,7 +133,10 @@ class MStockBarcodeScanner {
         )
     }
 
-    public fun addContext(context: Context): MStockBarcodeScanner {
+    /**
+     * @param context add context
+     */
+    fun addContext(context: Context): MStockBarcodeScanner {
         this.context = context
         return this
     }
@@ -112,13 +144,13 @@ class MStockBarcodeScanner {
     /**
      * builder method
      */
-    public fun build(): MStockBarcodeScanner {
+    fun build(): MStockBarcodeScanner {
         cameraProviderFuture = ProcessCameraProvider.getInstance(this.context)
         return this
     }
 
     /**
-     * add permission to grand
+     * @param permissions list to add permission to grand
      */
     public fun addPermission(permissions: ArrayList<String>): MStockBarcodeScanner {
         this.requiredPermissions += permissions
@@ -126,17 +158,17 @@ class MStockBarcodeScanner {
     }
 
     /**
-     * add permission to grand
+     * @param permission to add permission to grand
      */
-    public fun addPermission(permission: String): MStockBarcodeScanner {
+    fun addPermission(permission: String): MStockBarcodeScanner {
         this.requiredPermissions.add(permission)
         return this
     }
 
     /**
-     * to grand all needed permission
+     * @param activity to grand all needed permission
      */
-    public fun requestPermission(activity: Activity) {
+    fun requestPermission(activity: Activity) {
         if (allPermissionsGranted(context)) {
             Log.d("MStockBarcodeScanner", "All permission granted.")
         } else {

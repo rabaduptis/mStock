@@ -6,5 +6,6 @@ enum class ErrorType() {
     /**
      * not formatted properly
      */
-    LOGIN_NOT_PROPER, PASSWORD_NOT_PROPER
+    LOGIN_NOT_PROPER, PASSWORD_NOT_PROPER,
+    BARCODE_ON_FAILURE, BARCODE_ON_SUCCESS, BARCODE_ON_COMPLETE
 }
