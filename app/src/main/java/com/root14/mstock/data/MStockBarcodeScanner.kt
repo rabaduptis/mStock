@@ -42,13 +42,14 @@ class MStockBarcodeScanner {
         imageCapture = ImageCapture.Builder().setTargetResolution(Size(400, 400)).build()
         preview = Preview.Builder().build()
 
+        //TODO: implement auto-zoom according to ml-kit
         options = BarcodeScannerOptions.Builder().setBarcodeFormats(Barcode.FORMAT_ALL_FORMATS)
             .enableAllPotentialBarcodes().build()
     }
 
     /**
-     *
-     *
+     * process binded to surface view.
+     *@param imStockBarcodeScanner listener interface
      */
     public fun processPhoto(imStockBarcodeScanner: IMStockBarcodeScanner) {
         imageCapture.takePicture(ContextCompat.getMainExecutor(this.context),

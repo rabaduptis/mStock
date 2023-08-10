@@ -29,7 +29,7 @@ class BarcodeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        mStockBarcodeScanner=MStockBarcodeScanner()
+        mStockBarcodeScanner = MStockBarcodeScanner()
 
         mStockBarcodeScanner.addContext(requireContext())
         mStockBarcodeScanner.build()
@@ -78,5 +78,9 @@ class BarcodeFragment : Fragment() {
         }
 
     }
-    //TODO: implement unbind method on onDestroy
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mStockBarcodeScanner.unbind()
+    }
 }
