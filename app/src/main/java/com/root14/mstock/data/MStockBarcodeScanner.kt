@@ -5,11 +5,13 @@ import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
 import android.util.Log
+import android.util.Size
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.ImageProxy
 import androidx.camera.core.Preview
+import androidx.camera.core.impl.ImageCaptureConfig
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
@@ -37,7 +39,7 @@ class MStockBarcodeScanner {
         //default permission for barcodeReader
         requiredPermissions.add(Manifest.permission.CAMERA)
 
-        imageCapture = ImageCapture.Builder().build()
+        imageCapture = ImageCapture.Builder().setTargetResolution(Size(400, 400)).build()
         preview = Preview.Builder().build()
 
         options = BarcodeScannerOptions.Builder().setBarcodeFormats(Barcode.FORMAT_ALL_FORMATS)

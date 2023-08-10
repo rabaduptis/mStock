@@ -6,9 +6,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.camera.core.Preview
+import androidx.camera.view.PreviewView
 import androidx.fragment.app.Fragment
 import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
+import com.google.mlkit.vision.barcode.ZoomSuggestionOptions
 import com.google.mlkit.vision.barcode.common.Barcode
 import com.root14.mstock.data.IMStockBarcodeScanner
 import com.root14.mstock.data.MStockBarcodeScanner
@@ -21,13 +24,16 @@ class BarcodeFragment : Fragment() {
     private var _binding: FragmentBarcodeBinding? = null
     private val binding get() = _binding!!
 
-    private val mStockBarcodeScanner = MStockBarcodeScanner()
+    private lateinit var mStockBarcodeScanner: MStockBarcodeScanner
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        mStockBarcodeScanner=MStockBarcodeScanner()
+
         mStockBarcodeScanner.addContext(requireContext())
         mStockBarcodeScanner.build()
+
     }
 
     override fun onCreateView(
@@ -44,6 +50,7 @@ class BarcodeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.previewView.implementationMode = PreviewView.ImplementationMode.COMPATIBLE
         mStockBarcodeScanner.bindToView(binding.previewView)
 
 
@@ -51,7 +58,9 @@ class BarcodeFragment : Fragment() {
 
             mStockBarcodeScanner.processPhoto(object : IMStockBarcodeScanner {
                 override fun onBarcodeSuccess(barcodes: MutableList<Barcode>) {
-                    Log.d("onBarcodeSuccess", barcodes.toString())
+                    Snackbar.make(
+                        binding.root, barcodes.get(0).rawValue.toString(), Snackbar.LENGTH_SHORT
+                    ).show()
                 }
 
                 override fun onBarcodeFailure(barcodeOnFailure: ErrorType, e: Exception) {
@@ -63,7 +72,7 @@ class BarcodeFragment : Fragment() {
                 override fun onBarcodeComplete(
                     barcodeOnComplete: ErrorType, task: Task<MutableList<Barcode>>
                 ) {
-                    Snackbar.make(binding.root, "onBarcodeComplete", Snackbar.LENGTH_SHORT).show()
+                    // Snackbar.make(binding.root, "onBarcodeComplete", Snackbar.LENGTH_SHORT).show()
                 }
             })
         }
