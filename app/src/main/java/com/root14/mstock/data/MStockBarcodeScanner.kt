@@ -43,7 +43,13 @@ class MStockBarcodeScanner {
         preview = Preview.Builder().build()
 
         //TODO: implement auto-zoom according to ml-kit
-        options = BarcodeScannerOptions.Builder().setBarcodeFormats(Barcode.FORMAT_ALL_FORMATS)
+        options = BarcodeScannerOptions.Builder().setBarcodeFormats(
+            Barcode.FORMAT_EAN_13,
+            Barcode.FORMAT_CODE_128,
+            Barcode.FORMAT_CODE_93,
+            Barcode.FORMAT_CODE_39,
+            Barcode.FORMAT_EAN_8
+        )
             .enableAllPotentialBarcodes().build()
     }
 

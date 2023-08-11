@@ -16,8 +16,9 @@ glide = "4.15.1"
 firebase-auth-ktx = "22.1.0"
 play-services-auth = "20.6.0"
 firebase-bom = "32.2.0"
-hilt = "2.44"
+hilt = "2.46.1"
 play-services-mlkit-barcode-scanning = "18.3.0"
+room = "2.5.2"
 
 
 [libraries]
@@ -28,6 +29,8 @@ androidx-camera-lifecycle = { module = "androidx.camera:camera-lifecycle", versi
 androidx-camera-video = { module = "androidx.camera:camera-video", version.ref = "camera-core" }
 androidx-camera-view = { module = "androidx.camera:camera-view", version.ref = "camera-core" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+room-run-time = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
 google-services = { module = "com.google.gms:google-services", version.ref = "google-services" }
 hilt-android-v2461 = { module = "com.google.dagger:hilt-android", version.ref = "hilt-android" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }

@@ -10,12 +10,12 @@ plugins {
 
 android {
     namespace 'com.root14.mstock'
-    compileSdk 33
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.root14.mstock"
         minSdk 30
-        targetSdk 33
+        targetSdk 34
         versionCode 1
         versionName "1.0"
 
@@ -68,11 +68,9 @@ dependencies {
     implementation libs.androidx.camera.view
     implementation libs.androidx.camera.extensions
 
-    def room_version = "2.5.2"
-
-    ksp("androidx.room:room-compiler:$room_version")
-    ksp "androidx.room:room-compiler:$room_version"
-
+    implementation libs.room.run.time
+    annotationProcessor libs.room.compiler
+    ksp libs.room.compiler
 
 }
 
