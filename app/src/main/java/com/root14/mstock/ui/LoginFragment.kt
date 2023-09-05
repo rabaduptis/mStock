@@ -74,9 +74,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             if (it.errorType != null) {
                 println("form state error ${it.errorType.toString()}")
             }
-
         }
-
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

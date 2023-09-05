@@ -59,13 +59,15 @@ class BarcodeFragment : Fragment() {
             mStockBarcodeScanner.processPhoto(object : IMStockBarcodeScanner {
                 override fun onBarcodeSuccess(barcodes: MutableList<Barcode>) {
                     Snackbar.make(
-                        binding.root, barcodes.get(0).rawValue.toString(), Snackbar.LENGTH_SHORT
+                        binding.root, barcodes[0].rawValue.toString(), Snackbar.LENGTH_SHORT
                     ).show()
                 }
 
                 override fun onBarcodeFailure(barcodeOnFailure: ErrorType, e: Exception) {
                     Snackbar.make(
-                        binding.root, "onBarcodeFailure", Snackbar.LENGTH_SHORT
+                        binding.root,
+                        "Barcode could not be read. Try it again.",
+                        Snackbar.LENGTH_SHORT
                     ).show()
                 }
 
