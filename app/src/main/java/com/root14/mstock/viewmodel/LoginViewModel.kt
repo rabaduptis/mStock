@@ -37,8 +37,9 @@ class LoginViewModel @Inject constructor() : ViewModel() {
                     val exceptionCreateUser = task.exception
                     println(exceptionCreateUser?.message)
 
-                    if (exceptionCreateUser?.message.equals("The password is invalid or the user does not have a password.")) {
-                        auth.signInWithEmailAndPassword(email, password).addOnFailureListener {
+                    //if (exceptionCreateUser?.message.equals("The password is invalid or the user does not have a password.")) {
+                    if (exceptionCreateUser?.message.equals("There is no user record corresponding to this identifier. The user may have been deleted.")) {
+                        auth.createUserWithEmailAndPassword(email, password).addOnFailureListener {
 
                             if (task.isSuccessful) {
                                 _login.postValue(
