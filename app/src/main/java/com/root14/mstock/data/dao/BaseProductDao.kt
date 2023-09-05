@@ -5,9 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import com.root14.mstock.data.entity.BaseProductEntity
-import com.root14.mstock.data.entity.UniqueProductEntity
 import com.root14.mstock.data.model.BaseProductModel
-import com.root14.mstock.data.model.UniqueProductModel
 
 @Dao
 interface BaseProductDao {

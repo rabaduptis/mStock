@@ -2,8 +2,7 @@ package com.root14.mstock.di
 
 import android.content.Context
 import androidx.room.Room
-import androidx.room.RoomDatabase
-import com.root14.mstock.database.MStockDatase
+import com.root14.mstock.database.MStockDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,14 +17,14 @@ object BaseModule {
     @Singleton
     @Provides
     fun provideDb(@ApplicationContext context: Context) =
-        Room.databaseBuilder(context, MStockDatase::class.java, "mStockDB").build()
+        Room.databaseBuilder(context, MStockDatabase::class.java, "mStockDB").build()
 
 
     @Singleton
     @Provides
-    fun provideBaseProductDao(database: MStockDatase) = database.getBaseProductDao()
+    fun provideBaseProductDao(database: MStockDatabase) = database.getBaseProductDao()
 
     @Singleton
     @Provides
-    fun provideUniqueProductDao(database: MStockDatase) = database.getUniqueProductDao()
+    fun provideUniqueProductDao(database: MStockDatabase) = database.getUniqueProductDao()
 }
