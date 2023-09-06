@@ -4,7 +4,7 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "UniqueProductEntity")
+@Entity(tableName = "ProductEntity")
 data class ProductEntity(
     @PrimaryKey(autoGenerate = true) val id: Int?,
     @ColumnInfo(name = "createDate") val createDate: String,

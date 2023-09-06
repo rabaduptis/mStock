@@ -5,7 +5,7 @@ import com.root14.mstock.data.model.ProductModel
 
 class ProductConverter {
     companion object {
-        fun UniqueProductEntity2UniqueProductModel(productEntity: ProductEntity): ProductModel {
+        fun ProductEntity2UniqueProductModel(productEntity: ProductEntity): ProductModel {
             return ProductModel(
                 createDate = productEntity.createDate,
                 description = productEntity.description,
@@ -19,7 +19,7 @@ class ProductConverter {
             )
         }
 
-        fun UniqueProductEntity2UniqueProductModel(productEntityList: List<ProductEntity>): List<ProductModel> {
+        fun ProductEntity2UniqueProductModel(productEntityList: List<ProductEntity>): List<ProductModel> {
             val productModels = mutableListOf<ProductModel>()
 
             for (uniqueProductEntity in productEntityList) {

@@ -25,7 +25,7 @@ class MainViewModel @Inject constructor(
             val _result = productDao.getAllUniqueProduct()
 
             if (_result.isNotEmpty()) {
-                val result = ProductConverter.UniqueProductEntity2UniqueProductModel(_result)
+                val result = ProductConverter.ProductEntity2UniqueProductModel(_result)
                 _fillRecyclerView.postValue(result)
             }
         }

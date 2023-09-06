@@ -9,15 +9,15 @@ import com.root14.mstock.data.entity.ProductEntity
 @Dao
 interface ProductDao {
 
-    @Query("SELECT * FROM UniqueProductEntity")
+    @Query("SELECT * FROM ProductEntity")
     suspend fun getAllUniqueProduct(): List<ProductEntity>
 
-    @Query("SELECT * FROM UniqueProductEntity WHERE ean IN (:ean)")
-    suspend fun getProductDaoByEAN(ean: String): List<ProductEntity>
+    @Query("SELECT * FROM ProductEntity WHERE ean IN (:ean)")
+    suspend fun getProductDaoByEAN(ean: String): ProductEntity
 
     @Delete
-    suspend fun deleteProduct(uniqueProductModel: ProductEntity)
+    suspend fun deleteProduct(productEntity: ProductEntity)
 
     @Insert
-    suspend fun insertProduct(uniqueProductModel: ProductEntity)
+    suspend fun insertProduct(productEntity: ProductEntity)
 }
