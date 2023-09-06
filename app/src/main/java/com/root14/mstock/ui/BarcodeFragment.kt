@@ -61,9 +61,10 @@ class BarcodeFragment : Fragment() {
         mStockBarcodeScanner.bindToView(binding.previewView)
 
 
-        binding.buttonReadBarcode.setOnClickListener {
+        //TODO:get models and fill the recyclerview, if array empty show something
+        mainViewModel.fillRecyclerView()
 
-            mainViewModel.fillRecyclerView()
+        binding.buttonReadBarcode.setOnClickListener {
 
             mStockBarcodeScanner.processPhoto(object : IMStockBarcodeScanner {
                 override fun onBarcodeSuccess(barcodes: MutableList<Barcode>) {

@@ -22,9 +22,5 @@ object BaseModule {
 
     @Singleton
     @Provides
-    fun provideBaseProductDao(database: MStockDatabase) = database.getBaseProductDao()
-
-    @Singleton
-    @Provides
-    fun provideUniqueProductDao(database: MStockDatabase) = database.getUniqueProductDao()
+    fun provideProductDao(database: MStockDatabase) = database.getProductDao()
 }

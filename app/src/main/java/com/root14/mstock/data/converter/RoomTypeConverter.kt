@@ -2,16 +2,16 @@ package com.root14.mstock.data.converter
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson
-import com.root14.mstock.data.model.BaseProductModel
+import com.root14.mstock.data.model.ProductModel
 
 class RoomTypeConverter {
     @TypeConverter
-    fun fromBaseProductModel(baseProductModel: BaseProductModel): String {
-        return Gson().toJson(baseProductModel)
+    fun fromBaseProductModel(productModel: ProductModel): String {
+        return Gson().toJson(productModel)
     }
 
     @TypeConverter
-    fun toBaseProductModel(baseProductModelString: String): BaseProductModel {
-        return Gson().fromJson(baseProductModelString, BaseProductModel::class.java)
+    fun toBaseProductModel(productModelString: String): ProductModel {
+        return Gson().fromJson(productModelString, ProductModel::class.java)
     }
 }

@@ -26,8 +26,7 @@ class MainRecyclerViewAdapter(private val showCaseItemList: MutableList<ShowCase
     }
 
     override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
+        parent: ViewGroup, viewType: Int
     ): ModelViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.main_screen_list_item_layout, parent, false)
