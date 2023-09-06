@@ -71,6 +71,8 @@ dependencies {
     implementation libs.room.run.time
     annotationProcessor libs.room.compiler
     ksp libs.room.compiler
+    implementation libs.androidx.room.ktx
+
     implementation libs.gson
 
 }

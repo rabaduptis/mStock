@@ -9,15 +9,16 @@ import com.root14.mstock.data.model.UniqueProductModel
 
 @Dao
 interface UniqueProductDao {
+
     @Query("SELECT * FROM UniqueProductEntity")
-    fun getAllUniqueProduct(): List<UniqueProductDao>
+    fun getAllUniqueProduct(): List<UniqueProductEntity>
 
     @Query("SELECT * FROM UniqueProductEntity WHERE serialNo IN (:serialNo)")
-    fun getUniqueProductDaoBySerialNo(serialNo: String): List<UniqueProductModel>
+    fun getUniqueProductDaoBySerialNo(serialNo: String): List<UniqueProductEntity>
 
     @Delete
-    fun deleteUniqueProduct(uniqueProductEntity: UniqueProductEntity)
+    fun deleteUniqueProduct(uniqueProductModel: UniqueProductEntity)
 
     @Insert
-    fun insertUniqueProduct(uniqueProductEntity: UniqueProductEntity)
+    fun insertUniqueProduct(uniqueProductModel: UniqueProductEntity)
 }

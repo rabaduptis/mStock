@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.camera.view.PreviewView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
 import com.google.mlkit.vision.barcode.common.Barcode
@@ -17,6 +19,10 @@ import com.root14.mstock.data.enum.ErrorType
 import com.root14.mstock.databinding.FragmentBarcodeBinding
 import com.root14.mstock.viewmodel.LoginViewModel
 import com.root14.mstock.viewmodel.MainViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class BarcodeFragment : Fragment() {
@@ -56,7 +62,9 @@ class BarcodeFragment : Fragment() {
 
 
         binding.buttonReadBarcode.setOnClickListener {
-            mainViewModel._DB_DEBUG_()
+
+            mainViewModel.fillRecyclerView()
+
             mStockBarcodeScanner.processPhoto(object : IMStockBarcodeScanner {
                 override fun onBarcodeSuccess(barcodes: MutableList<Barcode>) {
                     Snackbar.make(

@@ -6,10 +6,10 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "BaseProductEntity")
 data class BaseProductEntity(
-    @PrimaryKey(autoGenerate = true) val uid: Int,
-    @ColumnInfo(name = "name") val name: String?,
-    @ColumnInfo(name = "ean") val ean: String?,
-    @ColumnInfo(name = "quantity") val quantity: Int?,
-    @ColumnInfo(name = "desi") val desi: String?,
-    @ColumnInfo(name = "price") val price: String?
+    @PrimaryKey(autoGenerate = true) val id: Int?,
+    @ColumnInfo(name = "name") val name: String,
+    @ColumnInfo(name = "ean") val ean: String,
+    @ColumnInfo(name = "quantity") val quantity: Int,
+    @ColumnInfo(name = "desi") val desi: String,
+    @ColumnInfo(name = "price") val price: String
 )

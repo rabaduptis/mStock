@@ -5,5 +5,6 @@ data class BaseProductModel(
     var ean: String,
     var quantity: Int,
     var desi: String,
-    var price: String
+    var price: String,
+    var id: Int?
 )

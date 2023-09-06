@@ -11,15 +11,14 @@ import com.root14.mstock.data.model.BaseProductModel
 interface BaseProductDao {
 
     @Query("SELECT * FROM BaseProductEntity")
-    fun getAllUniqueProduct(): List<BaseProductModel>
+    suspend fun getAllUniqueProduct(): List<BaseProductEntity>
 
     @Query("SELECT * FROM BaseProductEntity WHERE ean IN (:ean)")
-    fun getUniqueProductDaoBySerialNo(ean: String): List<BaseProductModel>
+    suspend fun getUniqueProductDaoBySerialNo(ean: String): List<BaseProductEntity>
 
     @Delete
-    fun deleteUniqueProduct(baseProductEntity: BaseProductEntity)
+    suspend fun deleteUniqueProduct(baseProductModel: BaseProductEntity)
 
     @Insert
-    fun insertUniqueProduct(baseProductEntity: BaseProductEntity)
-
+    suspend fun insertUniqueProduct(baseProductModel: BaseProductEntity)
 }
