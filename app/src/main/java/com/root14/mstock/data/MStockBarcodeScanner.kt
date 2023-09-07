@@ -34,6 +34,7 @@ class MStockBarcodeScanner {
     private lateinit var context: Context
     private var options: BarcodeScannerOptions
     private lateinit var cameraProvider: ProcessCameraProvider
+    private lateinit var lifecycleOwner: LifecycleOwner
 
     init {
         //default permission for barcodeReader
@@ -137,7 +138,7 @@ class MStockBarcodeScanner {
         preview.setSurfaceProvider(previewView.surfaceProvider)
 
         var camera = cameraProvider.bindToLifecycle(
-            context as LifecycleOwner, cameraSelector, preview, imageCapture
+            lifecycleOwner, cameraSelector, preview, imageCapture
         )
     }
 
@@ -146,6 +147,14 @@ class MStockBarcodeScanner {
      */
     fun addContext(context: Context): MStockBarcodeScanner {
         this.context = context
+        return this
+    }
+
+    /**
+     * @param context add LifecycleOwner
+     */
+    fun addLifecycleOwner(lifecycleOwner: LifecycleOwner): MStockBarcodeScanner {
+        this.lifecycleOwner = lifecycleOwner
         return this
     }
 

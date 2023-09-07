@@ -2,6 +2,7 @@ package com.root14.mstock.di
 
 import android.content.Context
 import androidx.room.Room
+import com.root14.mstock.data.MStockBarcodeScanner
 import com.root14.mstock.database.MStockDatabase
 import dagger.Module
 import dagger.Provides
@@ -23,4 +24,8 @@ object BaseModule {
     @Singleton
     @Provides
     fun provideProductDao(database: MStockDatabase) = database.getProductDao()
+
+    @Singleton
+    @Provides
+    fun provideMStockBarcodeScanner() = MStockBarcodeScanner()
 }

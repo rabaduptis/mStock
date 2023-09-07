@@ -9,8 +9,13 @@ import androidx.camera.view.PreviewView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleCoroutineScope
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleRegistry
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.whenResumed
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
@@ -25,51 +30,46 @@ import com.root14.mstock.viewmodel.AddProductViewModel
 import com.root14.mstock.viewmodel.BarcodeViewModel
 import com.root14.mstock.viewmodel.LoginViewModel
 import com.root14.mstock.viewmodel.MainViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
 
-class BarcodeFragment : Fragment() {
+@AndroidEntryPoint
+class BarcodeFragment : Fragment(), LifecycleOwner {
     private var _binding: FragmentBarcodeBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var mStockBarcodeScanner: MStockBarcodeScanner
+    @Inject
+    lateinit var mStockBarcodeScanner: MStockBarcodeScanner
 
-    private val mainViewModel: MainViewModel by activityViewModels()
     private val barcodeViewModel: BarcodeViewModel by activityViewModels()
-    private val addProductViewModel: AddProductViewModel by activityViewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        mStockBarcodeScanner = MStockBarcodeScanner()
-
-        mStockBarcodeScanner.addContext(requireContext())
-        mStockBarcodeScanner.build()
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentBarcodeBinding.inflate(inflater, container, false)
 
+        mStockBarcodeScanner.addLifecycleOwner(viewLifecycleOwner)
+        mStockBarcodeScanner.addContext(requireContext())
         mStockBarcodeScanner.addPermission(Manifest.permission.ACCEPT_HANDOVER)
             .requestPermission(requireActivity())
 
+        binding.previewView.implementationMode = PreviewView.ImplementationMode.COMPATIBLE
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.previewView.implementationMode = PreviewView.ImplementationMode.COMPATIBLE
+        //mStockBarcodeScanner.addLifecycleOwner(viewLifecycleOwner)
+
+        mStockBarcodeScanner.build()
+
         mStockBarcodeScanner.bindToView(binding.previewView)
-
-
-        //TODO:get models and fill the recyclerview, if array empty show something
-        mainViewModel.fillRecyclerView()
 
         binding.buttonReadBarcode.setOnClickListener {
 
@@ -116,12 +116,19 @@ class BarcodeFragment : Fragment() {
                     )
                 }
             }
-
         }
+    }
+
+
+
+    override fun onResume() {
+        super.onResume()
+        mStockBarcodeScanner.bindToView(binding.previewView)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         mStockBarcodeScanner.unbind()
+
     }
 }

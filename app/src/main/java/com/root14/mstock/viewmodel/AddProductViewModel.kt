@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.root14.mstock.data.MStockBarcodeScanner
 import com.root14.mstock.data.dao.ProductDao
 import com.root14.mstock.data.entity.ProductEntity
 import dagger.hilt.android.lifecycle.HiltViewModel

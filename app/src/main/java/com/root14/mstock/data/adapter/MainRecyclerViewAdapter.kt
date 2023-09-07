@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.root14.mstock.R
-import com.root14.mstock.data.model.ShowCaseDataModel
+import com.root14.mstock.data.model.ProductModel
 
-class MainRecyclerViewAdapter(private val showCaseItemList: MutableList<ShowCaseDataModel>) :
+class MainRecyclerViewAdapter(private val productItemList: List<ProductModel>) :
     RecyclerView.Adapter<MainRecyclerViewAdapter.ModelViewHolder>() {
 
     class ModelViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -17,8 +17,8 @@ class MainRecyclerViewAdapter(private val showCaseItemList: MutableList<ShowCase
         val ean: TextView = view.findViewById(R.id.text_view_ean)
         val quantity: TextView = view.findViewById(R.id.text_view_quantity)
 
-        fun bindItems(item: ShowCaseDataModel) {
-            productName.text = item.productName
+        fun bindItems(item: ProductModel) {
+            productName.text = item.name
             ean.text = item.ean
             quantity.text = item.quantity.toString()
         }
@@ -34,11 +34,11 @@ class MainRecyclerViewAdapter(private val showCaseItemList: MutableList<ShowCase
     }
 
     override fun onBindViewHolder(holder: ModelViewHolder, position: Int) {
-        holder.bindItems(showCaseItemList[position])
+        holder.bindItems(productItemList[position])
     }
 
     override fun getItemCount(): Int {
-        return showCaseItemList.size
+        return productItemList.size
     }
 
 }
