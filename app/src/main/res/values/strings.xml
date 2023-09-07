@@ -25,4 +25,5 @@
     <string name="email">email</string>
     <string name="login_register">login/register</string>
     <string name="read_barcode">Read Barcode</string>
+    <string name="description">Description</string>
 </resources>

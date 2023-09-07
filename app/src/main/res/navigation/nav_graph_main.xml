@@ -66,6 +66,9 @@
             android:name="serialNo"
             app:argType="string"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_addProductFragment_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailProductFragment"

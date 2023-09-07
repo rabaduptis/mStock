@@ -23,6 +23,14 @@ class BarcodeViewModel @Inject constructor(
 ) : ViewModel() {
 
 
+    companion object {
+        //last checked barcode code
+        private lateinit var _lastCode: String
+
+        fun getLastReadedCode() = _lastCode
+
+    }
+
     //TODO: implement liveData
     private val _barcodeResult = MutableLiveData<MStockResult<ProductModel>>()
     val barcodeResult: LiveData<MStockResult<ProductModel>> = _barcodeResult
@@ -30,43 +38,20 @@ class BarcodeViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             val result = productDao.getProductDaoByEAN(ean)
 
-            //some records found, GO-TO detailProduct screen
-            if (result != null) {//FIXME
+            _lastCode = ean
+
+            if (result != null) {
+                //some records found, GO-TO detailProduct screen
                 _barcodeResult.postValue(
                     MStockResult.Success(
                         ProductConverter.ProductEntity2UniqueProductModel(
                             result
-                        )
+                        ),
                     )
                 )
             } else {
-                //any record cannot find, GO-TO addProduct screen
                 _barcodeResult.postValue(MStockResult.Failure(ErrorType.DB_GENERAL_ERROR))
-
-                val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
-                val currentDate = sdf.format(Date())
-
-
-                val dummyProduct = ProductModel(
-                    id = null,
-                    createDate = currentDate.toString(),
-                    description = "dummy description",
-                    uniqueId = UUID.randomUUID().toString(),
-                    name = "dummy name",
-                    ean = ean,
-                    quantity = 2,
-                    desi = "2kg",
-                    price = "₺24"
-                )
-
-                productDao.insertProduct(
-                    ProductConverter.UniqueProductModel2UniqueProductEntity(
-                        dummyProduct
-                    )
-                )
-
             }
         }
-
     }
 }

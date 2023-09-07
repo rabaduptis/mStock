@@ -7,9 +7,9 @@ class ProductConverter {
     companion object {
         fun ProductEntity2UniqueProductModel(productEntity: ProductEntity): ProductModel {
             return ProductModel(
-                createDate = productEntity.createDate,
+                createDate = productEntity.createDate.toString(),
                 description = productEntity.description,
-                uniqueId = productEntity.uniqueId,
+                uniqueId = productEntity.uniqueId.toString(),
                 id = productEntity.id,
                 desi = productEntity.desi,
                 ean = productEntity.ean,
@@ -25,9 +25,9 @@ class ProductConverter {
             for (uniqueProductEntity in productEntityList) {
                 productModels.add(
                     ProductModel(
-                        createDate = uniqueProductEntity.createDate,
+                        createDate = uniqueProductEntity.createDate.toString(),
                         description = uniqueProductEntity.description,
-                        uniqueId = uniqueProductEntity.uniqueId,
+                        uniqueId = uniqueProductEntity.uniqueId.toString(),
                         id = uniqueProductEntity.id,
                         desi = uniqueProductEntity.desi,
                         ean = uniqueProductEntity.ean,

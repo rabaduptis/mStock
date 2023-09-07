@@ -15,6 +15,7 @@ constraintlayout = "2.1.4"
 nav_version = "2.6.0"
 glide = "4.15.1"
 firebase-auth-ktx = "22.1.0"
+navigation-safe-args-gradle-plugin = "2.7.2"
 play-services-auth = "20.6.0"
 firebase-bom = "32.2.0"
 hilt = "2.46.1"
@@ -29,6 +30,7 @@ androidx-camera-extensions = { module = "androidx.camera:camera-extensions", ver
 androidx-camera-lifecycle = { module = "androidx.camera:camera-lifecycle", version.ref = "camera-core" }
 androidx-camera-video = { module = "androidx.camera:camera-video", version.ref = "camera-core" }
 androidx-camera-view = { module = "androidx.camera:camera-view", version.ref = "camera-core" }
+androidx-navigation-safe-args-gradle-plugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigation-safe-args-gradle-plugin" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
