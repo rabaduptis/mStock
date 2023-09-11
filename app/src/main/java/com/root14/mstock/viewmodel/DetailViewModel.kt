@@ -24,8 +24,5 @@ class DetailViewModel @Inject constructor(
             val _result = productDao.getProductDaoByEAN(ean)
             _getUniqueProduct.postValue(_result)
         }
-
     }
-
-
 }
