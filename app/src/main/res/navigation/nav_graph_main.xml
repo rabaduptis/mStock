@@ -69,6 +69,9 @@
         <action
             android:id="@+id/action_addProductFragment_to_mainScreenFragment"
             app:destination="@id/mainScreenFragment" />
+        <action
+            android:id="@+id/action_addProductFragment_to_barcodeFragment"
+            app:destination="@id/barcodeFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailProductFragment"
@@ -79,5 +82,8 @@
             android:name="serialNo"
             app:argType="string"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_detailProductFragment_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment" />
     </fragment>
 </navigation>

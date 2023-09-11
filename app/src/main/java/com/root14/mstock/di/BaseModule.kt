@@ -28,4 +28,5 @@ object BaseModule {
     @Singleton
     @Provides
     fun provideMStockBarcodeScanner() = MStockBarcodeScanner()
+
 }

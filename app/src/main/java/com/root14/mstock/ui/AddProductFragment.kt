@@ -20,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class AddProductFragment : Fragment(), LifecycleOwner {
+class AddProductFragment : Fragment(){
 
     private val addProductViewModel: AddProductViewModel by activityViewModels()
 
@@ -59,11 +59,11 @@ class AddProductFragment : Fragment(), LifecycleOwner {
             addProductViewModel.addUniqueProduct(productEntity)
 
             Snackbar.make(binding.root, "product saving...", Snackbar.LENGTH_SHORT).show()
-        }
 
-        addProductViewModel.addUniqueProductResult.observe(viewLifecycleOwner) {
-            Snackbar.make(binding.root, "product saved.", Snackbar.LENGTH_SHORT).show()
-            findNavController().navigate(R.id.action_addProductFragment_to_mainScreenFragment)
+            addProductViewModel.addUniqueProductResult.observe(viewLifecycleOwner) {
+                Snackbar.make(binding.root, "product saved.", Snackbar.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.action_addProductFragment_to_mainScreenFragment)
+            }
         }
 
         super.onViewCreated(view, savedInstanceState)

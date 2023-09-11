@@ -9,13 +9,7 @@ import androidx.camera.view.PreviewView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleCoroutineScope
-import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LifecycleRegistry
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.whenResumed
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
@@ -26,15 +20,8 @@ import com.root14.mstock.data.MStockBarcodeScanner
 import com.root14.mstock.data.enum.ErrorType
 import com.root14.mstock.data.state.MStockResult
 import com.root14.mstock.databinding.FragmentBarcodeBinding
-import com.root14.mstock.viewmodel.AddProductViewModel
 import com.root14.mstock.viewmodel.BarcodeViewModel
-import com.root14.mstock.viewmodel.LoginViewModel
-import com.root14.mstock.viewmodel.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 
@@ -48,27 +35,25 @@ class BarcodeFragment : Fragment(), LifecycleOwner {
 
     private val barcodeViewModel: BarcodeViewModel by activityViewModels()
 
+    private var isOk: Boolean = false
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         _binding = FragmentBarcodeBinding.inflate(inflater, container, false)
-
-        mStockBarcodeScanner.addLifecycleOwner(viewLifecycleOwner)
-        mStockBarcodeScanner.addContext(requireContext())
-        mStockBarcodeScanner.addPermission(Manifest.permission.ACCEPT_HANDOVER)
-            .requestPermission(requireActivity())
-
-        binding.previewView.implementationMode = PreviewView.ImplementationMode.COMPATIBLE
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mStockBarcodeScanner.addLifecycleOwner(this)
+        mStockBarcodeScanner.addContext(requireContext())
 
-        //mStockBarcodeScanner.addLifecycleOwner(viewLifecycleOwner)
+        mStockBarcodeScanner.addPermission(Manifest.permission.ACCEPT_HANDOVER)
+            .requestPermission(requireActivity())
 
+        binding.previewView.implementationMode = PreviewView.ImplementationMode.COMPATIBLE
         mStockBarcodeScanner.build()
-
         mStockBarcodeScanner.bindToView(binding.previewView)
 
         binding.buttonReadBarcode.setOnClickListener {
@@ -81,6 +66,7 @@ class BarcodeFragment : Fragment(), LifecycleOwner {
 
                     //process barcode data
                     barcodeViewModel.checkUniqueProduct(barcodes[0].rawValue.toString())
+                    isOk = true
                 }
 
                 override fun onBarcodeFailure(barcodeOnFailure: ErrorType, e: Exception) {
@@ -89,6 +75,7 @@ class BarcodeFragment : Fragment(), LifecycleOwner {
                         "Barcode could not be read. Try it again.",
                         Snackbar.LENGTH_SHORT
                     ).show()
+                    isOk = true
                 }
 
                 override fun onBarcodeComplete(
@@ -98,37 +85,45 @@ class BarcodeFragment : Fragment(), LifecycleOwner {
                 }
             })
         }
+    }
 
+    override fun onResume() {
+        super.onResume()
         barcodeViewModel.barcodeResult.observe(viewLifecycleOwner) {
             when (it) {
                 is MStockResult.Success -> {
                     println("douglas look i'm alive! ${it.data}")
                     //move to detail fragment when success
-                    findNavController().navigate(R.id.action_barcodeFragment_to_detailProductFragment)
+                    val bundle =
+                        bundleOf("readed-ean-code" to BarcodeViewModel.getLastReadedCode())
+                    val currentDestination = findNavController().currentDestination
+                    if (currentDestination?.id == R.id.barcodeFragment && isOk) {
+                        isOk = false
+                        findNavController().navigate(
+                            R.id.action_barcodeFragment_to_detailProductFragment, bundle
+                        )
+                    }
                 }
 
                 is MStockResult.Failure -> {
                     println(it.error)
 
-                    val bundle = bundleOf("readed-ean-code" to BarcodeViewModel.getLastReadedCode())
-                    findNavController().navigate(
-                        R.id.action_barcodeFragment_to_addProductFragment, bundle
-                    )
+                    val bundle =
+                        bundleOf("readed-ean-code" to BarcodeViewModel.getLastReadedCode())
+                    val currentDestination = findNavController().currentDestination
+                    if (currentDestination?.id == R.id.barcodeFragment && isOk) {
+                        isOk = false
+                        findNavController().navigate(
+                            R.id.action_barcodeFragment_to_addProductFragment, bundle
+                        )
+                    }
                 }
             }
         }
     }
 
-
-
-    override fun onResume() {
-        super.onResume()
-        mStockBarcodeScanner.bindToView(binding.previewView)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onStop() {
+        super.onStop()
         mStockBarcodeScanner.unbind()
-
     }
 }
